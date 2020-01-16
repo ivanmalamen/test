@@ -11,8 +11,24 @@ pool:
 
 steps:
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
+- task: TriggerBuild@3
+  inputs:
+    definitionIsInCurrentTeamProject: true
+    buildDefinition: 'ivanmalamen.test'
+    queueBuildForUserThatTriggeredBuild: true
+    ignoreSslCertificateErrors: false
+    useSameSourceVersion: false
+    useSameBranch: true
+    waitForQueuedBuildsToFinish: false
+    storeInEnvironmentVariable: false
+    buildParameters: 'testvar: test'
+    authenticationMethod: 'Personal Access Token'
+    password: 'hpculcamyudp4gmamtcmjx2g35xarmbbpic7x3psekuwtmvzzoza'
+    enableBuildInQueueCondition: false
+    dependentOnSuccessfulBuildCondition: false
+    dependentOnFailedBuildCondition: false
+    checkbuildsoncurrentbranch: false
+    failTaskIfConditionsAreNotFulfilled: false
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
