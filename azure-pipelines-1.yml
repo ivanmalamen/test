@@ -19,7 +19,7 @@ steps:
     useSameBranch: true
     waitForQueuedBuildsToFinish: false
     storeInEnvironmentVariable: false
-    buildParameters: 'testvar: test'
+    buildParameters: 'testvar: triggeredpipeline'
     authenticationMethod: 'Personal Access Token'
     password: 'hpculcamyudp4gmamtcmjx2g35xarmbbpic7x3psekuwtmvzzoza'
     enableBuildInQueueCondition: false
