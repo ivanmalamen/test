@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo $[testvar]
+- script: echo $(testvar)
   displayName: 'Run a one-line script'
 
 - script: |
