@@ -26,8 +26,15 @@ stages:
     - bash: |
           mkdir -p $(Pipeline.Workspace)/variables
           echo $(version) > $(Pipeline.Workspace)/variables/version
-    - publish: $(Pipeline.Workspace)/variables
-            artifact: variables
+          cat $(Pipeline.Workspace)/variables/version
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)/variables/version'
+        artifact: 'version'
+        publishLocation: 'pipeline'
+
+
+
 
 - stage: Check
   jobs:
@@ -35,8 +42,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - download: current
-            artifact: variables
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'version'
+        targetPath: '$(Pipeline.Workspace)/variables'
     - bash: |
               FOO=$(cat $(Pipeline.Workspace)/variables/version)
               echo "##vso[task.setvariable variable=version]$version"
