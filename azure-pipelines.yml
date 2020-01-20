@@ -18,7 +18,6 @@ stages:
     - bash: "echo $(version)"
     - bash: |
             echo "Triggered by previous build. Breaking..."
-            exit 1
             echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
             echo "##vso[task.complete result=Canceled;]DONE"
 
