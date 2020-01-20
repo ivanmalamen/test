@@ -22,6 +22,7 @@ stages:
             echo "##vso[task.complete result=Canceled;]DONE"
 
 - stage: Version1
+  dependsOn: Version
   jobs:
   - job: read_and_update
     pool:
@@ -34,6 +35,7 @@ stages:
           echo $(($version+1))
 
 - stage: Version2
+  dependsOn: Version1
   jobs:
   - job: read_and_update
     pool:
