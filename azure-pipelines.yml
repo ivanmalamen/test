@@ -15,12 +15,19 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - checkout: self
+    - bash: "echo $(version)"
     - bash: |
           version=$(<.version)
           echo read version is $version
           echo "##vso[task.setvariable variable=version]$version"
       name: step
 
-    - bash: "echo $(step.version)"
     - bash: "echo $(version)"
 
+- stage: Check
+  jobs:
+  - job: read_from_prev_stage
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: "echo new $(version)"
