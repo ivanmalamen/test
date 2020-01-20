@@ -17,5 +17,30 @@ stages:
     - checkout: self
     - bash: "echo $(version)"
     - bash: |
+            echo "Triggered by previous build. Breaking..."
+            echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
+            echo "##vso[task.complete result=Canceled;]DONE"
+
+- stage: Version1
+  jobs:
+  - job: read_and_update
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - bash: "echo $(version)"
+    - bash: |
+          version=1
+          echo $(($version+1))
+
+- stage: Version2
+  jobs:
+  - job: read_and_update
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - bash: "echo $(version)"
+    - bash: |
           version=1
           echo $(($version+1))
