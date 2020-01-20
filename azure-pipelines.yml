@@ -24,6 +24,7 @@ stages:
 
 - stage: Version1
   dependsOn: Version
+  condition: succeeded('Version')
   jobs:
   - job: read_and_update
     pool:
@@ -37,6 +38,7 @@ stages:
 
 - stage: Version2
   dependsOn: Version1
+  condition: succeeded('Version')
   jobs:
   - job: read_and_update
     pool:
