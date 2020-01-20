@@ -3,25 +3,24 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  version: '0.1.0-SNAPSHOT'
 
-steps:
-#- script: echo $(testvar)
- # displayName: 'Run a one-line script'
-  #condition: in(variables['testvar'], 'qwe')
-  
- # Sets FOO to be "some value" in the script and the next ones
-- bash: |
-      FOO="some value"
-      echo "##vso[task.setvariable variable=FOO]$FOO"
 
-  # Using the $() syntax, the value is replaced inside Azure Pipelines before being submitted to the script task
-- bash: |
-      echo "$(FOO)"
+stages:
+- stage: Version
+  jobs:
+  - job: read_and_update
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - bash: |
+          version=$(<.version)
+          echo read version is $version
+          echo "##vso[task.setvariable variable=version]$version"
+      name: step
 
-  # The same variable is also present as environmental variable in scripts; here the variable expansion happens within bash
-- bash: |
-      echo "$FOO"
-
+    - bash: "echo $(step.version)"
+    - bash: "echo $(version)"
 
