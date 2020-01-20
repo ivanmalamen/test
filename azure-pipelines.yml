@@ -48,6 +48,6 @@ stages:
         artifactName: 'version'
         targetPath: '$(Pipeline.Workspace)/variables'
     - bash: |
-              FOO=$(cat $(Pipeline.Workspace)/variables/version)
+              version=$(<$(Pipeline.Workspace)/variables/version)
               echo "##vso[task.setvariable variable=version]$version"
     - bash: "echo new $(version)"
