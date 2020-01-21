@@ -42,7 +42,7 @@ stages:
           git add .version
           git commit -m "CI bumped to $version"
           git tag -a 0.1.0 -m "CI bumped to $version"
-          git push -f origin HEAD:master
+          git push -f origin HEAD:master --tags
 
 - stage: Version2
   dependsOn: Version1
