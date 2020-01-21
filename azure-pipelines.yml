@@ -35,10 +35,12 @@ stages:
     - bash: "echo $(version)"
     - bash: |
           echo new > .version
+          git config user.email "ivan.malamen@synceir.com"
+          git config user.name "Azure CI"
           git add .version
           git commit -m "CI bumped to $version"
-          git tag -a 0.1.0 -m "CI bumped to $version" 
-          git push -f origin master 
+          git tag -a 0.1.0
+          git push -f
 
 - stage: Version2
   dependsOn: Version1
