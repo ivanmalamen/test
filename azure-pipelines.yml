@@ -24,7 +24,7 @@ stages:
 
 - stage: Version1
   dependsOn: Version
-  condition: not(contains(${{Build.SourceVersionMessage}}, 'Update azure-pipelines.yml'))
+  condition: not(contains(${{variables.Build.SourceVersionMessage}}, 'Update azure-pipelines.yml'))
   jobs:
   - job: read_and_update
     pool:
