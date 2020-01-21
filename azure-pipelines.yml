@@ -17,7 +17,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - checkout: self
-    - bash: "echo $(Build.BuildUri)"
+    - bash: "sleep 5000"
 
 
 
