@@ -16,6 +16,7 @@ stages:
     steps:
     - checkout: self
     - bash: "echo $(version)"
+      bash: "echo $(Build.SourceVersionMessage)"
     - bash: |
             echo "Triggered by previous build. Breaking..."
             echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
@@ -23,7 +24,7 @@ stages:
 
 - stage: Version1
   dependsOn: Version
-  condition: ne(variables['Agent.JobStatus'], 'Canceled')
+  condition: not(contains(variables['Build.SourceVersionMessage'], 'Update azure-pipelines.yml')
   jobs:
   - job: read_and_update
     pool:
@@ -37,7 +38,7 @@ stages:
 
 - stage: Version2
   dependsOn: Version1
-  condition: ne(variables['Agent.JobStatus'], 'Canceled')
+  condition: 
   jobs:
   - job: read_and_update
     pool:
