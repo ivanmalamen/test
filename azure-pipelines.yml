@@ -23,7 +23,7 @@ stages:
 
 
 - stage: Version2
-  dependsOn: Version1
+  dependsOn: Version
   condition: 
   jobs:
   - job: read_and_update
