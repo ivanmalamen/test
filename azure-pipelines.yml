@@ -17,32 +17,10 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - checkout: self
-    - bash: "echo $(version)"
-    - bash: "echo $(Build.SourceVersionMessage)"
-    - bash: |
-            echo "Triggered by previous build. Breaking..."
-            echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
-            echo "##vso[task.complete result=Canceled;]DONE"
+    - bash: "echo $(Build.BuildUri)"
 
-- stage: Version1
-  dependsOn: Version
-  jobs:
-  - job: read_and_update
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - checkout: self
-      persistCredentials: true
-      clean: true
-    - bash: "echo $(version)"
-    - bash: |
-          echo Build.BuildNumber > .version
-          git config user.email "ivan.malamen@synceir.com"
-          git config user.name "Azure CI"
-          git add .version
-          git commit -m "CI bumped to $version"
-          git tag -a 0.1.0 -m "CI bumped to $version"
-          git push -f origin HEAD:master --tags
+
+
 
 - stage: Version2
   dependsOn: Version1
