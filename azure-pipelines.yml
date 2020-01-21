@@ -17,13 +17,13 @@ stages:
     - checkout: self
     - bash: "echo $(version)"
     - bash: |
-            echo "Triggered by previous build. Breaking..."
-            echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
-            echo "##vso[task.complete result=Canceled;]DONE"
+            #echo "Triggered by previous build. Breaking..."
+            #echo "##vso[task.setvariable variable=agent.jobstatus;]canceled"
+            #echo "##vso[task.complete result=Canceled;]DONE"
 
 - stage: Version1
   dependsOn: Version
-  condition: and(succeeded(),not(canceled()))
+  condition: neq(variables['Agent.JobStatus'], 'Canceled')
   jobs:
   - job: read_and_update
     pool:
@@ -37,7 +37,7 @@ stages:
 
 - stage: Version2
   dependsOn: Version1
-  condition: and(succeeded(),not(canceled()))
+  condition: neq(variables['Agent.JobStatus'], 'Canceled')
   jobs:
   - job: read_and_update
     pool:
