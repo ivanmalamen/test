@@ -23,7 +23,7 @@ stages:
 
 - stage: Version1
   dependsOn: Version
-  condition: and(succeeded(),not(cancelled()))
+  condition: and(succeeded(),not(canceled()))
   jobs:
   - job: read_and_update
     pool:
@@ -37,7 +37,7 @@ stages:
 
 - stage: Version2
   dependsOn: Version1
-  condition: and(succeeded(),not(cancelled()))
+  condition: and(succeeded(),not(canceled()))
   jobs:
   - job: read_and_update
     pool:
