@@ -32,6 +32,8 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - checkout: self
+      persistCredentials: true
+      clean: true
     - bash: "echo $(version)"
     - bash: |
           echo Build.BuildNumber > .version
