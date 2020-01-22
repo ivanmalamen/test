@@ -3,7 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 trigger:
-  none
+-  master
 
 variables:
   version: '0.1.0-SNAPSHOT'
